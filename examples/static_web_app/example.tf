@@ -76,7 +76,8 @@ module "private-dns-zone" {
   environment         = "qa"
   private_dns_config = [
     {
-      resource_type = "azure_static_web_apps"
+      resource_type = "custom_dns"
+      zone_name     = "privatelink.azurestaticapps.net"
       vnet_ids      = [module.vnet.vnet_id]
     },
   ]
@@ -121,7 +122,7 @@ module "static-web-app" {
   # VNet and Private Endpoint Integration
   private_endpoint_subnet_id    = module.subnet-ep.subnet_ids["sub3"]
   enable_private_endpoint       = true
-  private_dns_zone_ids          = module.private-dns-zone.private_dns_zone_ids.azure_static_web_apps
+  private_dns_zone_ids          = module.private-dns-zone.private_dns_zone_ids["custom_dns"]
   public_network_access_enabled = false
 
   # Basic auth for non-production environments
