@@ -12,7 +12,7 @@ module "resource_group" {
   source      = "terraform-az-modules/resource-group/azurerm"
   version     = "1.0.3"
   name        = "core"
-  environment = "qa"
+  environment = "dev"
   label_order = ["environment", "name", "location"]
   location    = "centralus"
 }
@@ -24,7 +24,7 @@ module "vnet" {
   source              = "terraform-az-modules/vnet/azurerm"
   version             = "1.0.3"
   name                = "core"
-  environment         = "qa"
+  environment         = "dev"
   label_order         = ["name", "environment", "location"]
   resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.resource_group_location
@@ -37,7 +37,7 @@ module "vnet" {
 module "subnet-ep" {
   source               = "terraform-az-modules/subnet/azurerm"
   version              = "1.0.1"
-  environment          = "qa"
+  environment          = "dev"
   resource_group_name  = module.resource_group.resource_group_name
   location             = module.resource_group.resource_group_location
   virtual_network_name = module.vnet.vnet_name
@@ -57,7 +57,7 @@ module "log-analytics" {
   source              = "terraform-az-modules/log-analytics/azurerm"
   version             = "1.0.2"
   name                = "core"
-  environment         = "qa"
+  environment         = "dev"
   label_order         = ["name", "environment", "location"]
   resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.resource_group_location
@@ -73,7 +73,7 @@ module "private-dns-zone" {
   location            = module.resource_group.resource_group_location
   label_order         = ["name", "environment", "location"]
   name                = "core"
-  environment         = "qa"
+  environment         = "dev"
   private_dns_config = [
     {
       resource_type = "custom_dns"
@@ -107,7 +107,7 @@ module "static-web-app" {
   depends_on          = [module.vnet, module.subnet-ep]
   enable              = true
   name                = "core"
-  environment         = "qa"
+  environment         = "dev"
   label_order         = ["name", "environment", "location"]
   resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.resource_group_location
