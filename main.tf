@@ -72,14 +72,15 @@ resource "azurerm_private_endpoint" "pep" {
     subresource_names              = ["staticSites"]
   }
 
-  private_dns_zone_group {
-    name                 = var.resource_position_prefix ? format("swa-dns-zone-group-%s", local.name) : format("%s-swa-dns-zone-group", local.name)
-    private_dns_zone_ids = [var.private_dns_zone_ids]
+  dynamic "private_dns_zone_group" {
+    for_each = length(var.private_dns_zone_ids) > 0 ? [1] : []
+    content {
+      name                 = var.resource_position_prefix ? format("swa-dns-zone-group-%s", local.name) : format("%s-swa-dns-zone-group", local.name)
+      private_dns_zone_ids = var.private_dns_zone_ids
+    }
   }
   lifecycle {
-    ignore_changes = [
-      tags,
-    ]
+    ignore_changes = []
   }
 }
 
@@ -120,6 +121,6 @@ resource "azurerm_monitor_diagnostic_setting" "swa_diag" {
   }
 
   lifecycle {
-    ignore_changes = [enabled_log, enabled_metric]
+    ignore_changes = []
   }
 }

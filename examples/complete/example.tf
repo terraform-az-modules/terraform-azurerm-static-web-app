@@ -122,7 +122,7 @@ module "static-web-app" {
   # VNet and Private Endpoint Integration
   private_endpoint_subnet_id    = module.subnet-ep.subnet_ids["sub3"]
   enable_private_endpoint       = true
-  private_dns_zone_ids          = module.private-dns-zone.private_dns_zone_ids["custom_dns"]
+  private_dns_zone_ids          = [module.private-dns-zone.private_dns_zone_ids["custom_dns"]]
   public_network_access_enabled = false
 
   # Basic auth for non-production environments

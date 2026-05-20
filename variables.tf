@@ -183,9 +183,9 @@ variable "private_endpoint_subnet_id" {
 }
 
 variable "private_dns_zone_ids" {
-  type        = string
-  default     = null
-  description = "Id of the private DNS Zone"
+  type        = list(string)
+  default     = []
+  description = "List of IDs of the private DNS Zones"
 }
 
 ##-----------------------------------------------------------------------------
