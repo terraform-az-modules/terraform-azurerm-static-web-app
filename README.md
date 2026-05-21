@@ -3,7 +3,7 @@
   <img src="https://github.com/user-attachments/assets/5b2ab201-5926-46fa-b0a2-07a6f406ab6d" alt="Banner" />
 </p>
 <h1 align="center">
-    Terraform Azure Module Template
+    Terraform Azure Static Web App
 </h1>
 
 <p align="center" style="font-size: 1.2rem;">
@@ -13,7 +13,7 @@
 <p align="center">
 
 <a href="https://www.terraform.io">
-  <img src="https://img.shields.io/badge/Terraform-v0.13-green" alt="Terraform">
+  <img src="https://img.shields.io/badge/Terraform-v1.10.0-green" alt="Terraform">
 </a>
 <a href="LICENSE.md">
   <img src="https://img.shields.io/badge/License-APACHE-blue.svg" alt="Licence">
@@ -26,16 +26,16 @@
 </p>
 <p align="center">
 
-<a href='https://facebook.com/sharer/sharer.php?u=https://github.com/clouddrove/terraform-module-template'>
+<a href='https://facebook.com/sharer/sharer.php?u=https://github.com/terraform-az-modules/terraform-azurerm-static-web-app'>
   <img title="Share on Facebook" src="https://user-images.githubusercontent.com/50652676/62817743-4f64cb80-bb59-11e9-90c7-b057252ded50.png" />
 </a>
 <a href='https://www.instagram.com/cloud_drove?igsh=cHJqaDY3bGtnYmh3' title="Follow On Instagram">
   <img src="https://github.com/gauravghongde/social-icons/blob/master/SVG/Color/Instagram.svg" width="23" height="23" />
 </a>
-<a href='https://www.linkedin.com/shareArticle?mini=true&title=Terraform+Module+Template&url=https://github.com/clouddrove/terraform-module-template'>
+<a href='https://www.linkedin.com/shareArticle?mini=true&title=Terraform+Azure+Static+Web+App&url=https://github.com/terraform-az-modules/terraform-azurerm-static-web-app'>
   <img title="Share on LinkedIn" src="https://user-images.githubusercontent.com/50652676/62817742-4e339e80-bb59-11e9-87b9-a1f68cae1049.png" />
 </a>
-<a href='https://twitter.com/intent/tweet/?text=Terraform+Module+Template&url=https://github.com/clouddrove/terraform-module-template'>
+<a href='https://twitter.com/intent/tweet/?text=Terraform+Azure+Static+Web+App&url=https://github.com/terraform-az-modules/terraform-azurerm-static-web-app'>
   <img title="Share on Twitter" src="https://user-images.githubusercontent.com/50652676/62817740-4c69db00-bb59-11e9-8a79-3580fbbf6d5c.png" />
 </a>
 
@@ -56,38 +56,73 @@ This table contains both Prerequisites and Providers:
 
 | Description   | Name                                       | Version   |
 |:-------------:|:-------------------------------------------:|:---------:|
-| **Prerequisite** | [Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html) | >= 1.6.6 |
-| **Provider** | [azure](https://azure.microsoft.com/) | >= 3.90.0 |
-
+| **Prerequisite** | [Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html) | >= 1.10.0 |
+| **Provider** | [azurerm](https://registry.terraform.io/providers/hashicorp/azurerm/latest) | >= 4.0 |
 
 
 
 
 ## Examples
 
-**IMPORTANT:** Since the master branch used in source varies based on new modifications, we recommend using the [release versions](https://github.com/terraform-az-modules/terraform-module-template/releases).
+**IMPORTANT:** Since the master branch used in source varies based on new modifications, we recommend using the [release versions](https://github.com/terraform-az-modules/terraform-azurerm-static-web-app/releases).
 
 📌 For additional usage examples, check the complete list under [`examples/`](./examples) directory.
-
 
 
 ## Inputs and Outputs
 
 ### Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| label_order | Label order, e.g. `name`,`application`,`centralus`. | `list(any)` | <pre>["name","environment",  "location"]</pre> | no |
+| Name                               | Description                                                                                                          | Type           | Default                                                                                       | Required |
+|------------------------------------|----------------------------------------------------------------------------------------------------------------------|----------------|-----------------------------------------------------------------------------------------------|:--------:|
+| app_insights_api_key_enable        | Enable creation of Application Insights API Key                                                                      | `bool`         | `false`                                                                                       | no       |
+| app_insights_connection_string     | Connection string of App Insights                                                                                    | `string`       | `null`                                                                                        | no       |
+| app_insights_id                    | ID of the existing Application Insights resource to use                                                              | `string`       | `null`                                                                                        | no       |
+| app_insights_instrumentation_key   | Instrumentation key of Application Insights                                                                          | `string`       | `null`                                                                                        | no       |
+| app_settings                       | Application settings for the Static Web App                                                                          | `map(string)`  | `{}`                                                                                          | no       |
+| application_insights_enabled       | Enable Application Insights integration                                                                              | `bool`         | `true`                                                                                        | no       |
+| basic_auth                         | Basic authentication block for the Static Web App                                                                    | `object`       | `null`                                                                                        | no       |
+| configuration_file_changes_enabled | Whether `staticwebapp.config.json` file changes can update runtime configuration                                     | `bool`         | `true`                                                                                        | no       |
+| custom_name                        | Override default naming convention                                                                                   | `string`       | `null`                                                                                        | no       |
+| deployment_mode                    | Specifies how the infrastructure/resource is deployed                                                                | `string`       | `"terraform"`                                                                                 | no       |
+| enable                             | Set to false to prevent the module from creating any resources                                                       | `bool`         | `true`                                                                                        | no       |
+| enable_diagnostic                  | Enable diagnostic settings for the Static Web App                                                                    | `bool`         | `false`                                                                                       | no       |
+| enable_private_endpoint            | Enable or disable private endpoint for the Static Web App                                                            | `bool`         | `false`                                                                                       | no       |
+| environment                        | Environment (e.g. `prod`, `dev`, `staging`)                                                                          | `string`       | `null`                                                                                        | no       |
+| extra_tags                         | Variable to pass extra tags                                                                                          | `map(string)`  | `null`                                                                                        | no       |
+| identity                           | Map with identity block information                                                                                  | `object`       | `{ type = "SystemAssigned", identity_ids = [] }`                                              | no       |
+| label_order                        | The order of labels used to construct resource names or tags                                                         | `list(string)` | `["name", "environment", "location"]`                                                         | no       |
+| location                           | The location/region where the Static Web App is created                                                              | `string`       | `null`                                                                                        | no       |
+| log_analytics_workspace_id         | Log Analytics Workspace ID for diagnostic logs                                                                       | `string`       | `null`                                                                                        | no       |
+| log_enabled                        | Enable log categories for diagnostic settings                                                                        | `bool`         | `false`                                                                                       | no       |
+| managedby                          | ManagedBy, eg 'terraform-az-modules'                                                                                 | `string`       | `"terraform-az-modules"`                                                                      | no       |
+| metric_enabled                     | Enable metrics for diagnostic settings                                                                               | `bool`         | `true`                                                                                        | no       |
+| name                               | Name (e.g. `app` or `cluster`)                                                                                       | `string`       | `null`                                                                                        | no       |
+| preview_environments_enabled       | Whether preview (staging) environments are enabled                                                                   | `bool`         | `true`                                                                                        | no       |
+| private_dns_zone_ids               | Id of the private DNS Zone                                                                                           | `string`       | `null`                                                                                        | no       |
+| private_endpoint_subnet_id         | Subnet ID for private endpoint                                                                                       | `string`       | `null`                                                                                        | no       |
+| public_network_access_enabled      | Whether enable public access for the Static Web App                                                                  | `bool`         | `false`                                                                                       | no       |
+| read_permissions                   | Read permissions for telemetry                                                                                       | `list(string)` | `["aggregate", "api", "draft", "extendqueries", "search"]`                                    | no       |
+| repository                         | Terraform current module repo                                                                                        | `string`       | `"https://github.com/terraform-az-modules/terraform-azurerm-static-web-app"`                  | no       |
+| resource_group_name                | A container that holds related resources for an Azure solution                                                       | `string`       | `""`                                                                                          | no       |
+| resource_position_prefix           | Controls the placement of the resource type keyword in the resource name                                             | `bool`         | `true`                                                                                        | no       |
+| sku_size                           | SKU size for the Static Web App. Possible values are `Free` and `Standard`.                                          | `string`       | `"Free"`                                                                                      | no       |
+| sku_tier                           | SKU tier for the Static Web App. Possible values are `Free` and `Standard`.                                          | `string`       | `"Free"`                                                                                      | no       |
+| storage_account_id                 | Storage Account ID for diagnostic logs (optional)                                                                    | `string`       | `null`                                                                                        | no       |
 
 ### Outputs
 
-| Name | Description |
-|------|-------------|
-| label_order | Label order, e.g. `name`,`application`,`centralus`. |
+| Name                              | Description                                                              |
+|-----------------------------------|--------------------------------------------------------------------------|
+| static_web_app_api_key            | API key of the Static Web App used by deployment automation (sensitive). |
+| static_web_app_default_host_name  | Default host name associated with the Static Web App                     |
+| static_web_app_id                 | Id of the Static Web App                                                 |
+| static_web_app_identity           | Managed identity info for the Static Web App                             |
+| static_web_app_name               | Name of the Static Web App                                               |
 
 
 
-<!-- 
+<!--
 ## Module Dependencies
 
 This module has dependencies on:
@@ -111,10 +146,10 @@ Refer [here](CHANGELOG.md).
 
 ## ✨ Contributors
 
-Big thanks to our contributors for elevating our project with their dedication and expertise! But, we do not wish to stop there, would like to invite contributions from the community in improving these projects and making them more versatile for better reach. Remember, every bit of contribution is immensely valuable, as, together, we are moving in only 1 direction, i.e. forward. 
+Big thanks to our contributors for elevating our project with their dedication and expertise! But, we do not wish to stop there, would like to invite contributions from the community in improving these projects and making them more versatile for better reach. Remember, every bit of contribution is immensely valuable, as, together, we are moving in only 1 direction, i.e. forward.
 
-<a href="https://github.com/terraform-az-modules/terraform-azure-module-template/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=terraform-az-modules/terraform-azure-module-template&max" />
+<a href="https://github.com/terraform-az-modules/terraform-azurerm-static-web-app/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=terraform-az-modules/terraform-azurerm-static-web-app&max" />
 </a>
 <br>
 <br>
@@ -128,14 +163,13 @@ Big thanks to our contributors for elevating our project with their dedication a
 - **Documentation Updates:** Include relevant documentation updates if your changes impact it.
 
 
-## Feedback 
-Spot a bug or have thoughts to share with us? Let's squash it together! Log it in our [issue tracker](https://github.com/terraform-az-modules/terraform-azure-module-template/issues), feel free to drop us an email at [hello@clouddrove.com](hello@clouddrove.com)).
+## Feedback
+Spot a bug or have thoughts to share with us? Let's squash it together! Log it in our [issue tracker](https://github.com/terraform-az-modules/terraform-azurerm-static-web-app/issues), feel free to drop us an email at [hello@clouddrove.com](hello@clouddrove.com)).
 
-Show some love with a ★ on [our GitHub](https://github.com/terraform-az-modules/terraform-azure-module-template)!  if our work has brightened your day! – your feedback fuels our journey!
+Show some love with a ★ on [our GitHub](https://github.com/terraform-az-modules/terraform-azurerm-static-web-app)!  if our work has brightened your day! – your feedback fuels our journey!
 
 
 ## :rocket: Our Accomplishment
-
 We have [*50+ Azure Terraform modules*][terraform_modules] 🙌. You could consider them finished, but, with enthusiasts like yourself, we are able to ever improve them, so we call our status - improvement in progress.
 
 - [Terraform Module Registry:](https://registry.terraform.io/namespaces/clouddrove) Discover our Terraform modules here.

@@ -1,46 +1,38 @@
 <!-- BEGIN_TF_DOCS -->
 
-# Terraform Azure Module Template
+# 🌐 Azure Static Web App
 
-This directory contains an example usage of the **terraform-azure-module-template**. It demonstrates how to use the module with default settings or with custom configurations.
+This example demonstrates how to deploy an **Azure Static Web App** using the module, including private endpoint integration, basic auth, Application Insights wiring, and diagnostic settings.
 
 ---
 
-## 📋 Requirements
+## ✅ Requirements
 
 | Name      | Version   |
 |-----------|-----------|
-| Terraform | >= 1.6.6  |
-| Azurerm   | >= 3.116.0|
+| Terraform | >= 1.10.0 |
+| Azurerm   | >= 4.0    |
 
 ---
 
 ## 🔌 Providers
 
-None specified in this example.
+No providers are explicitly defined in this example.
 
 ---
 
 ## 📦 Modules
 
-None specified in this example.
+| Name                 | Source                                              | Version |
+|----------------------|-----------------------------------------------------|---------|
+| application-insights | terraform-az-modules/application-insights/azurerm   | 1.0.1   |
+| log-analytics        | terraform-az-modules/log-analytics/azurerm          | 1.0.2   |
+| private-dns-zone     | terraform-az-modules/private-dns/azurerm            | 1.0.2   |
+| resource_group       | terraform-az-modules/resource-group/azurerm         | 1.0.3   |
+| static-web-app       | ../..                                               | n/a     |
+| subnet-ep            | terraform-az-modules/subnet/azurerm                 | 1.0.1   |
+| vnet                 | terraform-az-modules/vnet/azurerm                   | 1.0.3   |
 
 ---
-
-## 🏗️ Resources
-
-No resources are directly created in this example.
-
----
-
-## 🔧 Inputs
-
-No input variables are defined in this example.
-
----
-
-## 📤 Outputs
-
-No outputs are defined in this example.
 
 <!-- END_TF_DOCS -->
