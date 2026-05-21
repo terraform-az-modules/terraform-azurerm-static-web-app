@@ -6,7 +6,7 @@ intro: |-
 badges_text: "Latest Release | tfsec | License | Changelog"
 
 about: |-
-  Terraform module to create and manage Azure Static Web Apps.
+  Terraform module to create and manage Azure Static Web Apps on Azure.
 
 license: "APACHE"
 
@@ -32,7 +32,7 @@ providers:
     version: ">= 4.0"
 
 description: |-
-  Terraform module to create and manage Azure Static Web Apps, with optional private endpoint, Application Insights wiring, basic auth, and diagnostic settings.
+  Terraform module to create and manage Azure Static Web Apps on Azure.
 
 usage: |-
   ### Example
@@ -42,8 +42,8 @@ usage: |-
     source      = "terraform-az-modules/resource-group/azurerm"
     version     = "1.0.3"
     name        = "core"
-    environment = "qa"
-    label_order = ["environment", "name", "location"]
+    environment = "dev"
     location    = "centralus"
+    label_order = ["name", "environment", "location"]
   }
   ```
