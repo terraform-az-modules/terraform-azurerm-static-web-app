@@ -88,7 +88,7 @@ module "private-dns-zone" {
 ##-----------------------------------------------------------------------------
 module "application-insights" {
   source                     = "terraform-az-modules/application-insights/azurerm"
-  version                    = "1.0.1"
+  version                    = "1.0.2"
   name                       = "core"
   environment                = "dev"
   label_order                = ["name", "environment", "location"]
